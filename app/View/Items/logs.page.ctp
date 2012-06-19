@@ -1,0 +1,1 @@
+<?php echo $this->element('logs', array('display' => 'long', 'logs' => $logs)); ?>

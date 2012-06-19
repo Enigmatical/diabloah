@@ -1,0 +1,230 @@
+body {
+	font-family:Helvetica,Arial,sans-serif;
+}
+
+label {
+	margin: 5px 0px !important;
+}
+
+h1 {
+	font-family: 'Alegreya SC', serif !important;
+	font-size: 25px !important;
+	margin: 5px 0px !important;
+}
+
+.gothic {
+	font-family: 'Alegreya SC', serif !important;
+}
+
+div.form-spacer {
+	height: 2px;
+	margin: 20px 0px;
+}
+
+	div.form-spacer.solid {
+		background-color: #990000;
+	}
+	
+#recent-list {
+	display: none;
+}
+
+.rarity-magic a, .rarity-magic, .rarity-1, .rarity-1 a {
+	color: #1F8FFF !important;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 0px #222;
+}
+
+.rarity-rare a, .rarity-rare, .rarity-2, .rarity-2 a {
+	color: #E0E000 !important;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 0px #222;
+}
+
+.rarity-legendary a, .rarity-legendary, .rarity-3, .rarity-3 a {
+	color: #E07000 !important;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 0px #222;
+}
+
+span.addtl-notes {
+	font-family:Helvetica,Arial,sans-serif !important;
+	color: #666;
+	text-shadow: none;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: normal;
+}
+
+	h1 span.addtl-notes {
+		color: #FFF;
+	}
+	
+ul li.ui-li-divider {
+	text-transform: uppercase;
+	font-size: 14px;
+	background: -moz-linear-gradient(#580505, #CC0007) repeat scroll 0 0 #580505;
+	background: -webkit-linear-gradient(#580505, #CC0007) repeat scroll 0 0 #580505;
+	border-top: 1px solid #580505;
+	border-bottom: 1px solid #CC0007;
+}
+	
+ul .item-label, ul label {
+	display: block;
+	text-transform: uppercase;
+	color: #888;
+	font-size: 14px !important;
+	font-weight: normal;
+	line-height: 14px !important;
+	margin: 0 0 10px 0 !important;
+}
+
+ul .item-value {
+	font-size: 24px;
+	text-transform: uppercase;
+}
+
+ul .stacked-field {
+	margin-top: 10px;
+}
+
+ul .divider-1 {
+	font-family: 'Alegreya SC', serif !important;
+	font-size: 25px !important;
+	padding: 5px 15px !important;
+	background-color: #580505 !important;
+	background-image: none !important;
+	border-top: 1px solid #CC0007 !important;
+	border-bottom: 1px solid #580505 !important;
+	line-height: 25px;
+}
+
+ul .divider-2 {
+	font-weight: normal !important;
+}
+
+	ul .sub-divider-1 {
+		font-weight: normal;
+		font-family: 'Helvetica', 'Arial', sans;
+		font-size: 14px;
+	}
+
+#suggest-buyout {
+	font-size: 32px;
+}
+
+#comparison-stats-list-item {
+	display: none;
+}
+
+#suggested-buyout-results {
+	display: none;
+}
+
+.ui-li.stat-container {
+	display: none;
+}
+
+.ui-header .ui-btn-left, .ui-header .ui-btn-right {
+	top: 6px !important;
+}
+
+.error-message {
+	margin-top: 5px;
+	font-weight: normal;
+	color: #CC0007;
+}
+
+.required label:after, .required .item-label:after {
+	content: " *";
+}
+
+.list-button-spacer {
+	height: 25px;
+}
+
+#rmah-auctions-list, #rmah-auctions-button, #log-auctions-list {
+	display: none;
+}
+
+ul li.item-row a {
+	font-size: 20px;
+	text-shadow: 1px 1px 0px #333;
+}
+
+ul li .suggested-buyout {
+	margin-top: 5px;
+}
+
+	ul li .suggested-buyout:first-child {
+		margin-top: 0px;
+	}
+	
+ul li .suggested-buyout.recommended {
+	background-color: rgba(0, 204, 95, .25);
+}
+
+ul li .divider-right {
+	float: right;
+}
+
+	ul li a.divider-button {
+		text-transform: none;
+		height: 30px !important;
+		width: 85px !important;
+		margin-top: 8px;
+	}
+	
+		ul li a.divider-button span.ui-btn-inner {
+			padding: 0px !important;
+			margin: 2px 0px 0px 0px !important;
+		}
+		
+			ul li a.divider-button span.ui-btn-text {
+				font-size: 13.5px !important;
+				margin-left: 15px !important;
+			}
+			
+			ul li a.divider-button span.ui-icon {
+				padding: 0px !important;
+			}
+			
+ul li.log-row {
+	font-weight: normal !important;
+	font-size: 12px !important;
+	line-height: 16px;
+}
+
+	ul li.log-row span.log-detail {
+		font-size: 12px !important;
+		font-weight: bold !important;
+		margin-right: 2px;
+	}
+	
+		ul li.log-row span.log-name {
+			text-transform: none !important;
+		}
+	
+		ul li.log-row span.log-date {
+			font-style: italic;
+			color: #888 !important;
+			float: right;
+		}
+		
+			ul li.log-row.with-links span.log-date {
+				margin-right: 15px;
+			}
+	
+	ul li.log-row.with-links a {
+		padding-top: 11px !important;
+		padding-bottom: 9px !important;
+	}
+	
+	ul li.log-row.no-links {
+		padding-top: 12px !important;
+		padding-bottom: 7px !important;
+	}
+
+ul li.another-secondary.hide {
+	display: none;
+}
