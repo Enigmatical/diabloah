@@ -1,0 +1,17 @@
+[14-Jun-2012 19:13:58] PHP Parse error:  syntax error, unexpected T_FUNCTION in /home/enigmati/public_html/diabloah/app/Controller/AjaxController.php on line 138
+[14-Jun-2012 19:13:58] PHP Parse error:  syntax error, unexpected T_FUNCTION in /home/enigmati/public_html/diabloah/app/Controller/AjaxController.php on line 138
+[14-Jun-2012 19:15:00] PHP Parse error:  syntax error, unexpected T_FUNCTION in /home/enigmati/public_html/diabloah/app/Controller/AjaxController.php on line 138
+[14-Jun-2012 19:15:00] PHP Parse error:  syntax error, unexpected T_FUNCTION in /home/enigmati/public_html/diabloah/app/Controller/AjaxController.php on line 138
+[14-Jun-2012 19:15:44] PHP Parse error:  syntax error, unexpected T_FUNCTION in /home/enigmati/public_html/diabloah/app/Controller/AjaxController.php on line 138
+[14-Jun-2012 19:15:44] PHP Parse error:  syntax error, unexpected T_FUNCTION in /home/enigmati/public_html/diabloah/app/Controller/AjaxController.php on line 138
+[14-Jun-2012 19:36:58] PHP Parse error:  syntax error, unexpected T_FUNCTION in /home/enigmati/public_html/diabloah/app/Controller/AjaxController.php on line 138
+[14-Jun-2012 19:37:02] PHP Parse error:  syntax error, unexpected T_FUNCTION in /home/enigmati/public_html/diabloah/app/Controller/AjaxController.php on line 138
+[18-Jun-2012 10:18:20] PHP Warning:  unlink(/home/enigmati/public_html/diabloah/app/tmp/cache/persistent/myapp_cake_core_cake_dev_sv) [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/enigmati/public_html/diabloah/lib/Cake/Cache/Engine/FileEngine.php on line 247
+[18-Jun-2012 10:18:20] PHP Warning:  unlink(/home/enigmati/public_html/diabloah/app/tmp/cache/persistent/myapp_cake_core_default_en-ca) [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/enigmati/public_html/diabloah/lib/Cake/Cache/Engine/FileEngine.php on line 247
+[18-Jun-2012 10:18:21] PHP Warning:  unlink(/home/enigmati/public_html/diabloah/app/tmp/cache/persistent/myapp_cake_core_cake_en-ca) [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/enigmati/public_html/diabloah/lib/Cake/Cache/Engine/FileEngine.php on line 247
+[18-Jun-2012 10:18:21] PHP Warning:  unlink(/home/enigmati/public_html/diabloah/app/tmp/cache/persistent/myapp_cake_core_cake_en-ca) [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/enigmati/public_html/diabloah/lib/Cake/Cache/Engine/FileEngine.php on line 247
+[18-Jun-2012 10:40:54] PHP Fatal error:  Call to protected method AuthComponent::_getUser() from context 'AjaxController' in /home/enigmati/public_html/diabloah/app/Controller/AjaxController.php on line 55
+[18-Jun-2012 11:02:39] PHP Parse error:  syntax error, unexpected ')', expecting ',' or ';' in /home/enigmati/public_html/diabloah/app/View/Layouts/default.ctp on line 66
+[18-Jun-2012 11:02:54] PHP Fatal error:  Call to a member function user() on a non-object in /home/enigmati/public_html/diabloah/app/View/Layouts/default.ctp on line 63
+[20-Jun-2012 21:02:33] PHP Parse error:  syntax error, unexpected ';' in /home/enigmati/public_html/diabloah/app/View/Pages/home.ctp on line 31
+[20-Jun-2012 21:02:39] PHP Parse error:  syntax error, unexpected ';' in /home/enigmati/public_html/diabloah/app/View/Pages/home.ctp on line 31

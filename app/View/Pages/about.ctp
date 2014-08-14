@@ -21,13 +21,13 @@ I highly recommend using my app every time you open the Diablo 3 Auction House. 
 
 <h1>Why the need for a Signup and Login?</h1>
 <p>
-I know, I know... it seems shady.  Believe me, I had to explain myself in circles the need for a login page at all.  Essentially it's due to <b>database design</b> - <b>Users</b> own <b>Items</b> and I need <em>something</em> to uniquely identify a <b>User</b> with.  You can use whatever email address and password you want, <em>bogus or not</em>.  I'm not going to use them or even test them.
+I know, I know... it seems shady.  Believe me, I had to explain myself in circles the need for a login page at all.  Essentially it's due to <b>database design</b> - <b>Users</b> own <b>Items</b> and I need <em>something</em> to uniquely identify a <b>User</b> with.  You can use whatever username and password you want.
 </p>
 <p>
-<em>As a matter of fact, I strongly request that you <b>DO NOT</b> use your BNet Account information at all.</em>  Seriously, use anything that looks like an email address and password.  It just has to be unique and <em>you have to remember it</em>.
+<em>As a matter of fact, I strongly request that you <b>DO NOT</b> use your Battle.Net Account information at all.</em>  Seriously, use whatever username and password combination you want.
 </p>
 
-<h1>Does this connect with my BNet Account?</h1>
+<h1>Does this connect with my Battle.Net Account?</h1>
 <p>
 The simple answer is: <b>No</b>.  Blizzard has not shown any intentions of opening up the AH to developers and any AH enhancements are certainly behind much more pressing issues on their end.
 </p>
@@ -44,6 +44,14 @@ One of my biggest peeves with the current Auction House (and one of the reasons 
 <p>There is a setting on the <b>Settings</b> page that can provide some meaningful protection from the "trolls".  It ensures all "Market Research" Suggestions are based off your data alone rather than the community's as a whole.  While it can result in fewer "Market Research" Suggestions overall, it can at least continue to keep the app beneficial to you.</p>
 <p>That's the short-term solution.</p>
 <p>The long-term solution involves using basic statistics principles to identify the outliers (extreme points in a collection of data) and simply not include them.  As the app becomes more powerful and collects much more data, I will look into refining the algorithms and including some "Troll Protection."</p>
+
+<h1>Help!  I found a bug!</h1>
+<p>Well, first let me apologize and hopefully it hasn't caused too much harm.  This project is still in "beta" and I'm still actively squashing bugs and adding features (features that sometimes break other features, unfortunately).</p>
+<p>If you want to get ahold of me concerning a bug (and you definitely should), there's a few locations I check regularly:</p>
+<p>
+<a href="http://www.reddit.com">Reddit</a>, you can send a private message to <a href="http://www.reddit.com/user/functioning/" target="_blank">functioning</a><br />
+<a href="https://github.com/Enigmatical/diabloah">GitHub</a>, periodically updated, and you're welcome to open an <a href="https://github.com/Enigmatical/diabloah/issues?state=open" target="_blank">Issue</a>
+</p>
 
 <h1>Screenshots</h1>
 <a href="http://diabloah.developingwithdavis.com/img/screenshots/gold_auctions.PNG" target="_blank">Your Auctions</a>

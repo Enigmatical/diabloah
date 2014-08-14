@@ -64,6 +64,8 @@
 			$this->layout = 'ajax';
 			$this->autoRender = 'false';
 			
+			$user_id = $this->request->data['user_id'];
+			
 			$suggestions = array();
 			
 			/* MARKET RESEARCH */
@@ -73,11 +75,12 @@
 					Stat IDs and similar (within 15%) Stat Values and averages the Buyouts together.
 				*/
 				
-				$user_id = $this->request->data['user_id'];
-				
 				$MARKET_RANGE = $this->Preference->getPref($user_id, 'SUGGEST_MARKET_RANGE');
 				$LEVEL_LO = $this->Preference->getPref($user_id, 'COMPARE_LOWER_LEVEL');
 				$LEVEL_HI = $this->Preference->getPref($user_id, 'COMPARE_HIGHER_LEVEL');
+				$MATCH_THRESHOLD = $this->Preference->getPref($user_id, 'SUGGEST_MATCH_THRESHOLD');
+				$SIMILARS_REQUIRED = $this->Preference->getPref($user_id, 'SUGGEST_SIMILARS_REQUIRED');
+				$STRICTER_FILTER = $this->Preference->getPref($user_id, 'SUGGEST_STRICTER_FILTER');
 					
 				$conditions = array();
 				
@@ -107,50 +110,98 @@
 				
 				$results = $this->Item->find('all', array('conditions' => $conditions));
 				
-				$average = 0;
-				$market = 0;
-				$similar = 0;
+				$potential_similars = array();
 				
-				foreach($results as $item) {
-					
-					$match = 0;
-					
-					foreach($this->request->data['stats'] as $stat) {
+				if (!empty($this->request->data['stats'])) {
+				
+					$stat_count = count($this->request->data['stats']);
+				
+					foreach($results as $item) {
 						
-						$lowstat = $stat['value'] - ($stat['value'] * $MARKET_RANGE);
-						$highstat = $stat['value'] + ($stat['value'] * $MARKET_RANGE);
-					
-						foreach($item['ItemStat'] as $ItemStat) {
-							if ($ItemStat['stat_id'] == $stat['stat_id'] && $ItemStat['value'] >= $lowstat && $ItemStat['value'] <= $highstat) {
-								$match++;
+						$match = 0;
+						
+						foreach($this->request->data['stats'] as $stat) {
+							
+							$lowstat = $stat['value'] - ($stat['value'] * $MARKET_RANGE);
+							$highstat = $stat['value'] + ($stat['value'] * $MARKET_RANGE);
+						
+							foreach($item['ItemStat'] as $ItemStat) {
+								if ($ItemStat['stat_id'] == $stat['stat_id'] && $ItemStat['value'] >= $lowstat && $ItemStat['value'] <= $highstat) {
+									$match++;
+								}
 							}
 						}
-					}
-					
-					//An item is Considered Similar if n-1 out of n stats match (for example, an item with 2 stats that are in range with another item with 3 stats)
-					
-					if ( $match >= (count($this->request->data['stats']) - 1) ) {
-						$market += $item['Item']['buyout'];
-						$similar++;
+						
+						if ($match / $stat_count >= $MATCH_THRESHOLD) {
+							$potential_similars[] = array('id' => $item['Item']['id'], 'value' => max($item['Item']['bid'], $item['Item']['buyout']));
+						}
 					}
 				}
 								
-				if ($similar > 0) {
-					switch($this->request->data['ah_id']) {
-						case 1:
-						case 3:
-						default:
-							$average = ceil($market / $similar);
-						break;
-						case 2:
-						case 4:
-							$average = sprintf("%01.2f", ($market/$similar));
-						break;
+				if (count($potential_similars) > 0) {
+				
+					$values = array_merge($potential_similars, $potential_similars);
+					usort($values, array("AjaxController", "market_research_sort"));
+					
+					$count = count($values);
+					
+					$Q1 = $values[round( .25 * ( $count + 1 ) ) - 1]['value'];
+					$Q2 = ($count % 2 == 0) ? ($values[($count / 2) - 1]['value'] + $values[$count / 2]['value']) / 2 : $values[intval(($count + 1) / 2)]['value'];
+					$Q3 = $values[round( .75 * ( $count + 1 ) ) - 1]['value'];
+					
+					$IQR = $Q3 - $Q1;
+					
+					$bogus_detect = $IQR * 3;
+					$bogus_low = $Q1 - $bogus_detect;
+					$bogus_high = $Q3 + $bogus_detect;
+					
+					foreach($potential_similars as $ind => $s) {
+						if ($s['value'] < $bogus_low || $s['value'] > $bogus_high) {
+							unset($potential_similars[$ind]);
+						}
 					}
 					
-					$suggestions[] = array("label" => "Market Research ($similar Similar Items Found)", "value" => $average);
+					if ($STRICTER_FILTER) {
+						$bogus_detect = $IQR * 1.5;
+						$bogus_low = $Q1 - $bogus_detect;
+						$bogus_high = $Q3 + $bogus_detect;
+						
+						foreach($potential_similars as $ind => $s) {
+							if ($s['value'] < $bogus_low || $s['value'] > $bogus_high) {
+								unset($potential_similars[$ind]);
+							}
+						}						
+					}
+					
+					$market = 0;
+					$count = count($potential_similars);
+					foreach($potential_similars as $s) {
+						$market += $s['value'];
+					}
+					
+					if ($count >= $SIMILARS_REQUIRED) {
+				
+						$average = 0;
+						switch($this->request->data['ah_id']) {
+							case 1:
+							case 3:
+							default:
+								$average = ceil($market / $count);
+							break;
+							case 2:
+							case 4:
+								$average = sprintf("%01.2f", ($market/$count));
+							break;
+						}
+						
+						$suggestions[] = array("label" => "Market Research ($similar Similar Items Found)", "value" => $average);
+						
+					} else {
+						$suggestions[] = array("label" => "Market Research (Insufficient Items Found)", "value" => 0);
+					}
+					
 				} else {
-					$average = 0;
+					$suggestions[] = array("label" => "Market Research (No Similar Items Found)", "value" => 0);
 				}
 				
 				
@@ -216,6 +267,10 @@
 		}
 		
 		function suggest_sort($b, $a) {
+			return $a['value'] - $b['value'];
+		}
+		
+		function market_research_sort($a, $b) {
 			return $a['value'] - $b['value'];
 		}
 		

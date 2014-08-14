@@ -82,6 +82,7 @@
 			$this->set('Rarities', $this->Rarity->find('list'));
 			$this->set('Categories', $this->Category->find('list'));
 			
+			$this->set('SUGGEST_BID_PERCENT', $this->Preference->getPref($user_id, 'SUGGEST_BID_PERCENT'));
 			$this->set('COMPARE_HIGHER_LEVEL', $this->Preference->getPref($user_id, 'COMPARE_HIGHER_LEVEL'));
 			$this->set('COMPARE_LOWER_LEVEL', $this->Preference->getPref($user_id, 'COMPARE_LOWER_LEVEL'));
 			$this->set('COMPARE_STAT_RANGE', $this->Preference->getPref($user_id, 'COMPARE_STAT_RANGE'));
@@ -100,13 +101,18 @@
 					
 					$this->request->data['Item'] = array_merge($this->request->data['Item'], array('user_id' => $user_id));
 					
+					if(empty($this->request->data['Item']['paid'])) {
+						$this->request->data['Item']['paid'] = 0;
+					}
+					
 					if($this->Item->saveAll($this->request->data)) {
 						$log = array(
 							'Log' => array(
 								'item_id' => $this->Item->id,
 								'user_id' => $user_id,
 								'code' => 'add',
-								'detail_1' => $this->request->data['Item']['buyout']
+								'detail_1' => $this->request->data['Item']['buyout'],
+								'detail_2' => $this->request->data['Item']['bid']
 							)
 						);
 						
@@ -127,7 +133,8 @@
 			
 			$logs = $this->Log->find('all', array('conditions' => array('Log.item_id' => $id), 'order' => 'Log.created'));
 			$this->set('logs', $logs);
-		
+
+			$this->set('SUGGEST_BID_PERCENT', $this->Preference->getPref($user_id, 'SUGGEST_BID_PERCENT'));			
 			$this->set('COMPARE_HIGHER_LEVEL', $this->Preference->getPref($user_id, 'COMPARE_HIGHER_LEVEL'));
 			$this->set('COMPARE_LOWER_LEVEL', $this->Preference->getPref($user_id, 'COMPARE_LOWER_LEVEL'));
 			$this->set('COMPARE_STAT_RANGE', $this->Preference->getPref($user_id, 'COMPARE_STAT_RANGE'));
@@ -146,6 +153,7 @@
 					default:
 						$log['Log']['code'] = "update";
 						$log['Log']['detail_1'] = $this->request->data['Item']['buyout'];
+						$log['Log']['detail_2'] = $this->request->data['Item']['bid'];
 					break;
 					case 2:
 						$profit = 0;
@@ -153,11 +161,19 @@
 						switch($this->request->data['Item']['auction_house']) {
 							case 1:
 							case 3:
-								$profit = ceil($this->request->data['Item']['buyout'] - ($this->request->data['Item']['buyout'] * 0.15));
+								if ($this->request->data['Item']['sold_type'] == 'buyout') {
+									$profit = ceil($this->request->data['Item']['sold_for'] - ($this->request->data['Item']['sold_for'] * 0.15));
+								} else {
+									$profit = $this->request->data['Item']['sold_for'];
+								}
 							break;
 							case 2:
 							case 4:
-								$profit = $this->request->data['Item']['buyout'] - 1;
+								if ($this->request->data['Item']['sold_type'] == 'buyout') {
+									$profit = $this->request->data['Item']['sold_for'] - 1;
+								} else {
+									$profit = $this->request->data['Item']['sold_for'];
+								}
 							break;
 							default:
 								$profit = 0;
@@ -176,6 +192,11 @@
 					break;
 					case 3:
 						$log['Log']['code'] = "remove";
+					break;
+					case 4:
+						$log['Log']['code'] = "revert";
+						$this->request->data['Item']['status'] = 1;
+						$this->request->data['Item']['profit'] = 0;
 					break;
 				}
 				
