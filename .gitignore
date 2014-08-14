@@ -1,6 +1,8 @@
 core.php
 database.php
 tmp/**/*
+*.iml
+.idea/
 
 #################
 ## Eclipse
