@@ -173,7 +173,7 @@ $(document).ready(function() {
 			
 			$('#suggested-buyout-results').show();
 			
-			$('#ItemBid').val( recommended_value );
+			$('#ItemBid').val( parseInt(recommended_value * $.prefs.bid_percent) );
 			$('#ItemBuyout').val( recommended_value );
 		});
 		
@@ -190,13 +190,27 @@ $(document).ready(function() {
 		$('form').submit();
 	});
 	
-	$('.success-button').live('click', function(event) {
+	$('.bid-success-button').live('click', function(event) {
 		$('#ItemStatus').val(2);
+		$('#ItemSoldFor').val( $('#ItemBid').val() );
+		$('#ItemSoldType').val('bid');
+		$('form').submit();
+	});
+	
+	$('.buyout-success-button').live('click', function(event) {
+		$('#ItemStatus').val(2);
+		$('#ItemSoldFor').val( $('#ItemBuyout').val() );
+		$('#ItemSoldType').val('buyout');
 		$('form').submit();
 	});
 	
 	$('.remove-button').live('click', function(event) {
 		$('#ItemStatus').val(3);
+		$('form').submit();
+	});
+	
+	$('.revert-button').live('click', function(event) {
+		$('#ItemStatus').val(4);
 		$('form').submit();
 	});
 	
@@ -215,8 +229,8 @@ $(document).ready(function() {
 			$('#log-auctions-list-ul').append(results);
 			$('#log-auctions-list-ul').listview('refresh');
 			
-			$('#cur-log-count').val( offset - 0 + 20 );
-			if ($('#cur-log-count').val() >= $('#max-log-count')) {
+			$('#cur-log-count').val( offset * 1 + 20 );
+			if ($('#cur-log-count').val() >= $('#max-log-count').val()) {
 				$('#more-logs-button').hide();
 			}
 		});
@@ -236,21 +250,6 @@ $(document).ready(function() {
 		var val = $(this).val();
 		
 		if ($(this).hasClass('percentage')) {
-			val = val / 100;
-		}
-		
-		$.get('/ajax/preference/' + user + '/' + code + '/' + val, function(result) {
-			//console.log(result);
-		});
-	});
-	
-	$('.save-preference').live('click', function(event) {
-		var input = $(this).parents('li').find('input.preference-slider');
-		var user = $.current_user.id;
-		var code = $(input).attr('rel');
-		var val = $(input).val();
-		
-		if ($(input).hasClass('percentage')) {
 			val = val / 100;
 		}
 		

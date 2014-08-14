@@ -13,6 +13,7 @@
 					  case 'add': ?>
 				<?php case 'update': ?>
 				<?php case 'remove': ?>
+				<?php case 'revert': ?>
 				<?php default: ?>
 					<img class="ui-li-icon" src="/img/<?php echo $log['Log']['code']; ?>.png" />
 				<?php break; ?>
@@ -36,6 +37,9 @@
 				<?php case 'sold': ?>
 						<span class="log-action log-detail"><?php echo $display == 'long' ? 'sold' : 'Sold'; ?></span> on the
 				<?php break; ?>
+				<?php case 'revert': ?>
+						<Span class="log-action log-detail"><?php echo $display == 'long' ? 'returned' : 'Returned'; ?></span> to the
+				<?php break; ?>
 				<?php default: ?>
 				<?php break; ?>
 			<?php endswitch; ?>
@@ -57,7 +61,11 @@
 			<?php switch($log['Log']['code']):
 						case 'add':
 						case 'update': ?>
-							for <span class="log-money log-detail"><?php echo $log['Log']['detail_1']; ?></span>
+							<?php if (!empty($log['Log']['detail_1']) && !empty($log['Log']['detail_2']) && $log['Log']['detail_1'] != $log['Log']['detail_2']): ?>
+							for <span class="log-money log-detail">Bid <?php echo $log['Log']['detail_2']; ?> / Buyout <?php echo $log['Log']['detail_1']; ?></span>
+							<?php else: ?>
+							for <span class="log-money log-detail"><?php echo max($log['Log']['detail_1'], $log['Log']['detail_2']); ?></span>
+							<?php endif; ?>
 				  <?php break; ?>
 				     <?php case 'sold': ?>
 							for <span class="log-money log-detail"><?php echo $log['Log']['detail_1']; ?></span>

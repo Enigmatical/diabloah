@@ -12,20 +12,27 @@
 		public $validate = array(
 			'username' => array(
 				'username-rule-1' => array(
-					'rule' => 'email',
-					'required' => true,
-					'message' => 'Please provide a valid email address.'
+					'rule' => array('between', 5, 50),
+					'message' => 'Please provide a username (between 5 and 50 characters long).',
+					'allowEmpty' => false
 				),
 				'username-rule-2' => array(
 					'rule' => 'isUnique',
-					'message' => 'An account with this email already exists.'
+					'message' => 'An account with this username already exists.'
+				),
+				'username-rule-3' => array(
+					'rule' => 'notEmpty',
+					'message' => 'Your username cannot be blank.'
 				)
 			),
 			'password' => array(
 				'password-rule-1' => array(
 					'rule' => array('between', 3, 30),
-					'required' => true,
-					'message' => 'Passwords must be between 3 and 30 characters long.'
+					'message' => 'Passwords must be between 3 and 30 characters long.',
+				),
+				'password-rule-2' => array(
+					'rule' => 'notEmpty',
+					'message' => 'Your password cannot be blank.'
 				)
 			)
 		);

@@ -19,7 +19,8 @@
 	</li>
 	<?php foreach($auctions['gold']['normal']['auctions'] as $item) : ?>
 		<li class="rarity-<?php echo strtolower($item['Item']['rarity_id']); ?> item-row">
-			<a data-ajax="false" href="/items/view/<?php echo $item['Item']['id']; ?>" class="gothic"><?php echo $item['Item']['name']; ?>, <span class="addtl-notes">Level <?php echo $item['Item']['required_level']; ?> <?php echo $item['Category']['name']; ?> <?php echo $item['Type']['name']; ?></span></a></li>
+			<a data-ajax="false" href="/items/view/<?php echo $item['Item']['id']; ?>" class="gothic"><?php echo $item['Item']['name']; ?><br /><span class="addtl-notes">Level <?php echo $item['Item']['required_level']; ?> <?php echo $item['Category']['name']; ?> <?php echo $item['Type']['name']; ?></span></a>
+		</li>
 	<?php endforeach; ?>
 	<?php if ($SHOW_HARDCORE): ?>
 		<li class="divider-1" data-role="list-divider">
@@ -28,7 +29,9 @@
 			<div class="sub-divider-1"><b><?php echo count($auctions['gold']['hardcore']['auctions']); ?></b> Auctions, <b><?php echo count($auctions['gold']['hardcore']['sales']); ?></b> Sales, <b><?php echo number_format($auctions['gold']['hardcore']['profit']); ?></b> Profits</div>
 		</li>
 		<?php foreach($auctions['gold']['hardcore']['auctions'] as $item) : ?>
-			<li class="rarity-<?php echo strtolower($item['Item']['rarity_id']); ?> item-row"><a data-ajax="false" href="/items/view/<?php echo $item['Item']['id']; ?>" class="gothic"><?php echo $item['Item']['name']; ?>, <span class="addtl-notes">Level <?php echo $item['Item']['required_level']; ?> <?php echo $item['Category']['name']; ?> <?php echo $item['Type']['name']; ?></span></a></li>
+			<li class="rarity-<?php echo strtolower($item['Item']['rarity_id']); ?> item-row">
+				<a data-ajax="false" href="/items/view/<?php echo $item['Item']['id']; ?>" class="gothic"><?php echo $item['Item']['name']; ?><br /><span class="addtl-notes">Level <?php echo $item['Item']['required_level']; ?> <?php echo $item['Category']['name']; ?> <?php echo $item['Type']['name']; ?></span></a>
+			</li>
 		<?php endforeach; ?>
 
 	<?php endif; ?>
@@ -42,7 +45,8 @@
 	</li>
 	<?php foreach($auctions['rmah']['normal']['auctions'] as $item) : ?>
 		<li class="rarity-<?php echo strtolower($item['Item']['rarity_id']); ?> item-row">
-			<a data-ajax="false" href="/items/view/<?php echo $item['Item']['id']; ?>" class="gothic"><?php echo $item['Item']['name']; ?>, <span class="addtl-notes">Level <?php echo $item['Item']['required_level']; ?> <?php echo $item['Category']['name']; ?> <?php echo $item['Type']['name']; ?></span></a></li>
+			<a data-ajax="false" href="/items/view/<?php echo $item['Item']['id']; ?>" class="gothic"><?php echo $item['Item']['name']; ?><br /><span class="addtl-notes">Level <?php echo $item['Item']['required_level']; ?> <?php echo $item['Category']['name']; ?> <?php echo $item['Type']['name']; ?></span></a>
+		</li>
 	<?php endforeach; ?>
 
 	<?php /*

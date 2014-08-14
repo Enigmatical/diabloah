@@ -28,6 +28,7 @@
 	$.prefs.required_level_hi = <?php echo $COMPARE_HIGHER_LEVEL; ?>;
 	$.prefs.required_level_lo = <?php echo $COMPARE_LOWER_LEVEL; ?>;
 	$.prefs.stat_range = <?php echo $COMPARE_STAT_RANGE; ?>;
+	$.prefs.bid_percent = <?php echo $SUGGEST_BID_PERCENT; ?>;
 </script>
 
 <?php echo $this->Form->create('Item', array('data-ajax' => 'false')); ?>
@@ -73,7 +74,7 @@
 			<?php echo $this->Form->input('primary_stat', array('type' => 'number', 'label' => 'Primary Stat (DPS or Armor)')); ?>
 		</li>
 		<?php for($i = 0; $i < 15; $i++): ?>
-		<li class="another-secondary <?php echo $i == 0 ? 'active' : 'hide'; ?>">
+		<li class="another-secondary <?php echo $i < 3 ? 'active' : 'hide'; ?> <?php echo $i % 2 == 0 ? 'light' : 'dark'; ?>">
 			<label>Secondary Stat <?php echo $i + 1; ?></label>
 			<?php echo $this->Form->input("ItemStat.$i.stat_id", array('label' => false, 'class' => 'ajax-item-stat')); ?>
 			<?php echo $this->Form->input("ItemStat.$i.value", array('label' => false, 'type' => 'number', 'class' => 'stacked-field secondary-stat-value', 'rel' => $i)); ?>		
