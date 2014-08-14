@@ -15,7 +15,7 @@
 		public $validate = array(
 			'name' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Please enter the Loot\'s Name.',
+				'message' => 'Please provide the Loot\'s Name.',
 				'required' => true
 			),
 			'rarity_id' => array(
@@ -36,7 +36,7 @@
 			'required_level' => array(
 				'isEmpty' => array(
 					'rule' => 'notEmpty',
-					'message' => 'Please enter the Loot\'s Required Level.',
+					'message' => 'Please provide the Loot\'s Required Level.',
 					'required' => true
 				),
 				'isValid' => array(
@@ -47,7 +47,7 @@
 			'vendor_value' => array(
 				'isEmpty' => array(
 					'rule' => 'notEmpty',
-					'message' => 'Please enter the Loot\'s Sell Value.',
+					'message' => 'Please provide the Loot\'s Sell Value.',
 					'required' => true
 				),
 				'isValid' => array(
@@ -63,34 +63,45 @@
 				)
 			),
 			'paid' => array(
-				'isValid' => array(
-					'rule' => array('comparison', '>=', 0),
+				'isNumeric' => array(
+					'rule' => array('numeric'),
 					'message' => 'Bought For Value must be a number.',
 					'allowEmpty' => true
+				),
+				'isValid' => array(
+					'rule' => array('comparison', '>=', 0),
+					'message' => 'Bought For Value must be greater than or equal to 0.',
 				)
 			),
 			'bid' => array(
-				'isEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Please enter the Loot\'s Bid Value.',
-					'required' => true
+				'bidOrBuyout' => array(
+					'rule' => 'bidBuyoutCheck',
+					'message' => 'Please provide the Loot\'s Bid or Buyout Value.'
 				),
 				'isValid' => array(
 					'rule' => array('comparison', '>', 0),
-					'message' => 'Bid Value must be a number greater than 0.'
+					'message' => 'Bid Value must be a number greater than 0.',
+					'allowEmpty' => true
 				)
 			),
 			'buyout' => array(
-				'isEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Please enter the Loot\'s Buyout Value.',
-					'required' => true
+				'bidOrBuyout' => array(
+					'rule' => 'bidBuyoutCheck',
+					'message' => 'Please provide the Loot\'s Bid or Buyout Value.'
 				),
 				'isValid' => array(
 					'rule' => array('comparison', '>', 0),
-					'message' => 'Buyout Value must be a number greater than 0.'
+					'message' => 'Buyout Value must be a number greater than 0.',
+					'allowEmpty' => true
 				)
 			)
 		);
+		
+		public function bidBuyoutCheck() {
+			if( (isset($this->data['Item']['bid']) && !empty($this->data['Item']['bid'])) || (isset($this->data['Item']['buyout']) && !empty($this->data['Item']['buyout'])) ) {
+				return true;
+			}
+			return false;
+		}
 	}
 ?>

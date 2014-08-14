@@ -8,11 +8,14 @@
 	Configure::write('DiabloAH.COMPARE_HIGHER_LEVEL', 1);
 	Configure::write('DiabloAH.COMPARE_LOWER_LEVEL', 3);
 	Configure::write('DiabloAH.COMPARE_STAT_RANGE', 0.10);
-	
+
+	Configure::write('DiabloAH.SUGGEST_BID_PERCENT', 1);	
 	Configure::write('DiabloAH.SUGGEST_MARKET_RANGE', 0.10);
+	Configure::write('DiabloAH.SUGGEST_MATCH_THRESHOLD', 0.75);
+	Configure::write('DiabloAH.SUGGEST_STRICTER_FILTER', 0);
+	Configure::write('DiabloAH.SUGGEST_SIMILARS_REQUIRED', 3);
 	Configure::write('DiabloAH.SUGGEST_LOWEST_UNDERCUT', 0.08);
 	Configure::write('DiabloAH.SUGGEST_VENDOR_MARKUP', 2);
-	
 
 /**
  * This file is loaded automatically by the app/webroot/index.php file after core.php

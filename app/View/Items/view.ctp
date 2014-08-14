@@ -8,6 +8,7 @@
 	$.prefs.required_level_hi = <?php echo $COMPARE_HIGHER_LEVEL; ?>;
 	$.prefs.required_level_lo = <?php echo $COMPARE_LOWER_LEVEL; ?>;
 	$.prefs.stat_range = <?php echo $COMPARE_STAT_RANGE; ?>;
+	$.prefs.bid_percent = <?php echo $SUGGEST_BID_PERCENT; ?>;
 </script>
 
 <?php echo $this->Form->create('Item', array('data-ajax' => 'false')); ?>
@@ -18,6 +19,17 @@
 	<?php echo $this->Form->input('rarity_id', array('type' => 'hidden', 'value' => $item['Item']['rarity_id'])); ?>
 	<?php echo $this->Form->input('vendor_value', array('type' => 'hidden', 'value' => $item['Item']['vendor_value'])); ?>
 	<?php echo $this->Form->input('paid', array('type' => 'hidden', 'value' => $item['Item']['paid'])); ?>
+	<?php echo $this->Form->input('category_id', array('type' => 'hidden', 'value' => $item['Item']['category_id'])); ?>
+	<?php echo $this->Form->input('type_id', array('type' => 'hidden', 'value' => $item['Item']['type_id'])); ?>
+	<?php echo $this->Form->input('required_level', array('type' => 'hidden', 'value' => $item['Item']['required_level'])); ?>
+	<?php echo $this->Form->input('primary_stat', array('type' => 'hidden', 'value' => $item['Item']['primary_stat'])); ?>
+	<?php echo $this->Form->input('sold_for', array('type' => 'hidden')); ?>
+	<?php echo $this->Form->input('sold_type', array('type' => 'hidden')); ?>
+	
+	<?php if ($item['Item']['status'] == 2 || $item['Item']['status'] == 3): ?>
+		<?php echo $this->Form->input('bid', array('type' => 'hidden', 'value' => $item['Item']['bid'] )); ?>
+		<?php echo $this->Form->input('buyout', array('type' => 'hidden', 'value' => $item['Item']['buyout'] )); ?>
+	<?php endif; ?>
 	
 	<ul class="item-detail-list" data-role="listview">
 		<li data-role="list-divider" class="divider-1">
@@ -74,12 +86,10 @@
 			<li>
 				<label>Category</label>
 				<div class="item-value"><?php echo $item['Category']['name']; ?></div>
-				<?php echo $this->Form->input('category_id', array('type' => 'hidden', 'value' => $item['Item']['category_id'])); ?>
 			</li>
 			<li>
 				<label>Type</label>
 				<div class="item-value"><?php echo $item['Type']['name']; ?></div>
-				<?php echo $this->Form->input('type_id', array('type' => 'hidden', 'value' => $item['Item']['type_id'])); ?>
 			</li>
 			<li>
 				<label>Level Required</label>
@@ -90,7 +100,6 @@
 					if ($lowLevel < 1) { $lowLevel = 1; }
 				?>
 				<div class="item-value"><?php echo $lowLevel; ?> - <?php echo $highLevel; ?></div>
-				<?php echo $this->Form->input('required_level', array('type' => 'hidden', 'value' => $item['Item']['required_level'])); ?>
 			</li>
 			
 			<li data-role="list-divider" class="divider-2">
@@ -104,7 +113,6 @@
 						<label>Armor</label>
 					<?php endif; ?>
 					<div class="item-value"><?php echo $item['Item']['primary_stat']; ?></div>
-					<?php echo $this->Form->input('primary_stat', array('type' => 'hidden', 'value' => $item['Item']['primary_stat'])); ?>
 				</li>
 			<?php endif; ?>
 			<?php $ind = 0; ?>
@@ -180,9 +188,17 @@
 	
 	<?php if ($item['Item']['status'] == 1): ?>
 		<div class="list-button-spacer"></div>
-		<a href="javascript:;" data-role="button" data-icon="check" class="success-button">Success!</a>
-		<a href="javascript:;" data-role="button" data-icon="home" class="auction-button">Auction It!</a>
+		<a href="javascript:;" data-role="button" data-icon="check" class="bid-success-button">Bid Success!<br /><span style="font-size: 10px; color: #777; text-transform: uppercase;">TRANSACTION FEES will NOT be removed</span></a>		
+		<a href="javascript:;" data-role="button" data-icon="check" class="buyout-success-button">Buyout Success!<br /><span style="font-size: 10px; color: #777; text-transform: uppercase;">TRANSACTION FEES will be removed</span></a>
+		<div class="list-button-spacer" style="height: 15px;"></div>
+		<a href="javascript:;" data-role="button" data-icon="home" class="auction-button">Re-List Auction!</a>
+		<div class="list-button-spacer" style="height: 15px;"></div>
 		<a href="javascript:;" data-role="button" data-icon="delete" class="remove-button">Remove</a>
+	<?php endif; ?>
+	
+	<?php if ($item['Item']['status'] == 2 || $item['Item']['status'] == 3): ?>
+		<div class="list-button-spacer"></div>
+		<a href="javascript:;" data-role="button" data-icon="refresh" class="revert-button">Return to Auction House</a>
 	<?php endif; ?>
 
 <?php echo $this->Form->end(); ?>

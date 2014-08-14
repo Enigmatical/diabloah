@@ -29,6 +29,8 @@
 	Router::connect('/signup', array('controller' => 'users', 'action' => 'signup'));
 	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
 	Router::connect('/settings', array('controller' => 'users', 'action' => 'settings'));
+	Router::connect('/change_username', array('controller' => 'users', 'action' => 'change_username'));
+	Router::connect('/change_password', array('controller' => 'users', 'action' => 'change_password'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */

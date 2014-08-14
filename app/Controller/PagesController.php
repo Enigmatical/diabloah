@@ -50,7 +50,7 @@ class PagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array();
+	public $uses = array('User', 'Item');
 
 /**
  * Displays a view
@@ -76,6 +76,15 @@ class PagesController extends AppController {
 		if (!empty($path[$count - 1])) {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
+		
+		if($page == 'home') {
+			$total_active_users = $this->Item->find('count', array('fields' => 'DISTINCT Item.user_id'));
+			$total_item_sales = $this->Item->find('count', array('conditions' => array('Item.status' => 2)));
+			
+			$this->set('total_active_users', $total_active_users);
+			$this->set('total_item_sales', $total_item_sales);
+		}
+		
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 		$this->render(implode('/', $path));
 	}

@@ -41,6 +41,35 @@
 			}
 		}
 		
+		public function change_username() {
+			$user_id = $this->Auth->User('id');
+			
+			$user = $this->User->find('first', array('conditions' => array('User.id' => $user_id)));
+			
+			$username = $user['User']['username'];
+			
+			$this->set('user_id', $user_id);
+			$this->set('username', $username);
+			
+			if ($this->request->is('post')) {
+				if ($this->User->save($this->request->data)) {
+					$this->redirect(array('action' => 'settings'));
+				}
+			}
+		}
+		
+		public function change_password() {
+			$user_id = $this->Auth->user('id');
+			
+			$this->set('user_id', $user_id);
+			
+			if ($this->request->is('post')) {
+				if ($this->User->save($this->request->data)) {
+					$this->redirect(array('action' => 'settings'));
+				}
+			}
+		}
+		
 		public function settings() {
 			$user_id = $this->Auth->User('id');
 		
@@ -52,7 +81,11 @@
 				'COMPARE_HIGHER_LEVEL', 
 				'COMPARE_LOWER_LEVEL',
 				'COMPARE_STAT_RANGE',
+				'SUGGEST_BID_PERCENT',
 				'SUGGEST_MARKET_RANGE',
+				'SUGGEST_MATCH_THRESHOLD',
+				'SUGGEST_SIMILARS_REQUIRED',
+				'SUGGEST_STRICTER_FILTER',
 				'SUGGEST_LOWEST_UNDERCUT',
 				'SUGGEST_VENDOR_MARKUP'
 			);
